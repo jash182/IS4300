@@ -1,0 +1,78 @@
+---
+title: "Auckland NZ Temperature Data 2016"
+author: "Jonathan Ash"
+date: "4/28/2021"
+output:
+  word_document: default
+  html_document: default
+---
+## Introduction 
+
+  The following is an analysis of the weatherData data set. The weatherData data set contains data on the recorded weather variables for a number of cities including Chicago, Beijing, and Auckland to name a few. All of the data in the data set being used if from the year 2016. All temperature in this analysis is in Fahrenheit. This analysis focuses on the temperature data of the city of Auckland New Zealand. Auckland has a population close to 1.5 million and is located in the Norther side of the Island. Both the low and average temperatures are visualized to gain an understanding of the weather patterns of Auckland. New Zealand is in the temperate maritime zone and experiences seasonal changes. This means is has a climate typical of the pacific islands without spending extended periods of time in extreme temperatures. It is expected that Auckland falls into a temperate climate, but New Zealand’s diverse landscape could show a variance in comparison to the rest of the Island. 
+```{r setup, echo =FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+#File should be loaded to hard drive since we could not get it off. 
+```
+
+
+## Visualizations
+
+
+```{r , include=FALSE}
+
+
+if(!require(tidyverse)) install.packages("tidyverse", repos = "http://cran.us.r-project.org")
+
+urlfile <- "https://raw.githubusercontent.com/jash182/IS4300/main/Weather.csv"
+
+```
+
+```{r,echo = FALSE}
+
+# Read the data into R and name it cricketers.
+#WeatherMan <- read_csv(url(urlfile))
+WeatherMan <- read.csv("Weather.csv")
+
+
+```
+
+  Below is a boxplot of the average temperature of Auckland. The X axis is the average temperature, and the Y axis is the portion of days where that temperature was recorded. 
+
+```{r, echo = FALSE }
+
+
+Auk <- WeatherMan %>% filter(city == "Auckland")
+Auk_plot <- Auk %>% ggplot
+
+Auk_plot + geom_boxplot(aes(avg_temp, fill= "blue"),fill = "light green", color = "black",size = 1, show.legend = FALSE) + labs(x = "Average Temperature")
+
+```
+
+  Below is a histogram of the lowest temperatures of Auckland. The X axis is the recording of the lowest temperatures in Auckland for the year 2016.
+
+```{r, echo = FALSE}
+Auk <- WeatherMan %>% filter(city == "Auckland")
+
+Auk_hist <- Auk %>% ggplot()
+
+Auk_hist + geom_histogram(aes(x= low_temp,fill =year),fill = "light green",color="black", bins = 30, size = 1, show.legend = FALSE) + labs(x = "Low Temperature" , y = "Day")
+
+#what we are looking at
+
+```
+
+
+## Analysis
+The average temperature shown in the first visualization is a range from 56 degrees to 65 degrees. The Temperature lows of Auckland are on average 50 degrees. This is a moderate temperature in comparison to North American climates. An analysis of the temperature data for Auckland New Zealand suggest Auckland has a relatively cool climate in comparison to the Southern United State but warm compared to Canada. There are no large swings in temperature in Auckland that are not common for seasonal variance. The histogram shows that the average temperature for Auckland NZ in 2016 was between 50- and 60-degrees Fahrenheit. Lowest percentage of days with similarly recorded temperatures were on both ends of the X Axis. The lowest recorded temperatures were at 20 degrees Fahrenheit and the highest average temperature recorded was 69 degrees Fahrenheit.We produce a 95% confidence interval on Auckland NZ of 60.1 - 61.1. All of the data suggest that Auckland has a seasonal variance of 50 degrees Fahrenheit. Also, the extreme changes in temperature are common the more common temperature for Auckland is 50 degrees Fahrenheit. For the majority of the year Auckland is above freezing and never reaches high enough temperatures for a high increase in the chances of heat stroke.
+```{r, include = FALSE}
+
+t.test(Auk$avg_temp)
+## We produce a 95% confidence interval on Auckland NZ of 60.1 - 61.1.
+```
+
+## Conclusion.
+
+
+  To conclude the analysis of the weatherData collected in Auckland New Zealand. There is moderate temperature. The temperature low is on average is fifty degrees Fahrenheit. The average temperature is 60 degrees Fahrenheit. The concludes that Auckland has temperate temperatures with seasonal variance. For the year of 2016, the was only a small proportion of days where the temperature was below freezing. The majority of days experienced cool temperatures below 70 degrees. This can potentially be used for weather prediction and wildlife management.
+
+
