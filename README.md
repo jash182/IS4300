@@ -1,4 +1,4 @@
-# IS4300
+# Personal Projects
 Weather is the excel file.
 Weather has to be downloaded and read from a directory.
 Ashj8 is the doc produced by the RMD file.
